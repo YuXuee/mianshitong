@@ -17,7 +17,8 @@ export async function exportToDocx(data: ResumeData, filename: string): Promise<
       },
     });
 
-  const children: Paragraph[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const children: any[] = [];
 
   // Header - name
   children.push(
@@ -158,7 +159,7 @@ export async function exportToDocx(data: ResumeData, filename: string): Promise<
   });
 
   const buffer = await Packer.toBuffer(doc);
-  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+  const blob = new Blob([new Uint8Array(buffer)], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

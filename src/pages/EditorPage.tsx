@@ -55,7 +55,7 @@ export default function EditorPage() {
       saveTimerRef.current = setTimeout(async () => {
         if (!id) return;
         const { error } = await supabase.from('resumes').update({
-          resume_data: data as unknown,
+          resume_data: data as never,
           status: 'ready',
         }).eq('id', id);
         if (!error) setUnsaved(false);
@@ -74,7 +74,7 @@ export default function EditorPage() {
     setSaving(true);
     clearTimeout(saveTimerRef.current);
     const { error } = await supabase.from('resumes').update({
-      resume_data: resumeData as unknown,
+      resume_data: resumeData as never,
       status: 'ready',
     }).eq('id', id);
     if (!error) {

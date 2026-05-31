@@ -142,7 +142,7 @@ export default function UploadPage() {
 
       const resumeData: ResumeData = parseResult.resumeData;
       await supabase.from('resumes').update({
-        resume_data: resumeData as unknown,
+        resume_data: resumeData as never,
         status: 'ready',
       }).eq('id', resume.id);
 

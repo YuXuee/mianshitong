@@ -44,7 +44,7 @@ export function useResume(id: string | undefined) {
     if (!id) return;
     const { data, error } = await supabase
       .from('resumes')
-      .update(updates)
+      .update(updates as never)
       .eq('id', id)
       .select()
       .single();

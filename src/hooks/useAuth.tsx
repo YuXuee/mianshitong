@@ -29,9 +29,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+    }).catch(() => {
+      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    // Fallback: force loading=false after 5s
+    const timer = setTimeout(() => setLoading(false), 5000);
+
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(timer);
+    };
   }, []);
 
   const signUp = async (email: string, password: string) => {
